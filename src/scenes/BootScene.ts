@@ -90,6 +90,31 @@ export class BootScene extends Phaser.Scene {
     lifeGraphics.fillStyle(0xffffff, 1);
     lifeGraphics.fillCircle(6, 6, 6);
     lifeGraphics.generateTexture('life_icon', 12, 12);
+
+    // Mobile arrow buttons
+    this.createArrowButton('btn_left', true);
+    this.createArrowButton('btn_right', false);
+  }
+
+  private createArrowButton(key: string, facingLeft: boolean): void {
+    const size = 56;
+    const g = this.make.graphics({ x: 0, y: 0 });
+    // Semi-transparent circle background
+    g.fillStyle(0xffffff, 0.15);
+    g.fillCircle(size / 2, size / 2, size / 2);
+    g.fillStyle(0xffffff, 0.25);
+    g.fillCircle(size / 2, size / 2, size / 2 - 4);
+    // Arrow triangle
+    g.fillStyle(0xffffff, 0.7);
+    const cx = size / 2;
+    const cy = size / 2;
+    if (facingLeft) {
+      g.fillTriangle(cx - 10, cy, cx + 6, cy - 10, cx + 6, cy + 10);
+    } else {
+      g.fillTriangle(cx + 10, cy, cx - 6, cy - 10, cx - 6, cy + 10);
+    }
+    g.generateTexture(key, size, size);
+    g.destroy();
   }
   
   private createBrickTexture(key: string, color: number, shadowColor: number): void {
